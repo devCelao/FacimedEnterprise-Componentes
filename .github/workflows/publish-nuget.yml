@@ -1,0 +1,41 @@
+name: publish-nuget
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+jobs:
+  pack-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore & Build
+        run: |
+          dotnet restore
+          dotnet build -c Release --no-restore
+
+      - name: Pack
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          dotnet pack WebApiCore/WebApiCore.csproj \
+            -c Release -o ./artifacts \
+            /p:Version=$VERSION
+
+      - name: Add GitHub Packages source
+        run: |
+          dotnet nuget add source \
+            --username ${{ github.repository_owner }} \
+            --password ${{ secrets.GITHUB_TOKEN }} \
+            --store-password-in-clear-text \
+            --name github \
+            "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+
+      - name: Push package
+        run: dotnet nuget push "artifacts/*.nupkg" --source github --skip-duplicate
