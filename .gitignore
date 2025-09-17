@@ -1,0 +1,76 @@
+# =========================
+# .NET / Class Libraries
+# =========================
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+out/
+artifacts/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+
+# Visual Studio Code (mantém configs úteis)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# NuGet (pacotes gerados e cache local legado)
+*.nupkg
+*.snupkg
+packages/
+!packages/build/
+
+# Paket (se você usar)
+.paket/
+paket-files/
+
+# ReSharper / NCrunch / outros addons
+_ReSharper*/
+*.DotSettings.user
+_NCrunch_*/
+.*crunch*.local.xml
+*.JustCode
+
+# Testes e cobertura
+TestResult*/
+[Test]Results/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+BenchmarkDotNet.Artifacts/
+
+# Sonar
+.sonarqube/
+
+# Temporários / OS
+*.tmp
+*.temp
+*.bak
+*.orig
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# Outras ferramentas
+/.vsconfig
